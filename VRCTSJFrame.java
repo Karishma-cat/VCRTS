@@ -1,6 +1,13 @@
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class VRCTSJFrame {
     public static void main(String[] args) {
@@ -28,5 +35,62 @@ public class VRCTSJFrame {
 
         frame.setLayout(null);
         frame.setVisible(true);
+
+        //alex section(note to self: double check for spelling erro)
+        jobButton.addActionListener(e -> {
+            
+            JFrame jobFrame = new JFrame("Job Submission");
+            jobFrame.setSize(300, 350);
+
+            JLabel jobLabel = new JLabel("Job Information:");
+            jobLabel.setBounds(20, 20, 200, 30);
+            jobFrame.add(jobLabel);
+
+            JTextField ownerIdField = new JTextField("Owner ID");
+            ownerIdField.setBounds(20, 60, 200, 30);
+            jobFrame.add(ownerIdField);
+
+            
+
+            JButton submitJobButton = new JButton("Submit Job");
+            submitJobButton.setBounds(20, 260, 150, 30);
+            jobFrame.add(submitJobButton);
+
+            jobFrame.setLayout(null);
+            jobFrame.setVisible(true);
+
+           
+            submitJobButton.addActionListener(event -> {
+               
+                String ownerID = ownerIdField.getText();
+                
+
+                
+                LocalDateTime currentTime = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String timestamp = currentTime.format(formatter);
+
+                
+                String data = "Timestamp: " + timestamp + "\n"
+                        + "Owner ID: " + ownerID + "\n";
+                        
+
+                
+                        String fileName = "actionlog.txt"; 
+                        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+                            writer.write(data);
+                            writer.newLine(); 
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                        
+
+                
+                JOptionPane.showMessageDialog(null, "Data submitted and saved to " + fileName);
+
+            
+                jobFrame.dispose();
+            });
+        });
     }
 }
