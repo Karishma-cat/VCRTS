@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -42,15 +43,29 @@ public class VRCTSJFrame {
             JFrame jobFrame = new JFrame("Job Submission");
             jobFrame.setSize(300, 350);
 
-            JLabel jobLabel = new JLabel("Job Information:");
+            JLabel jobLabel = new JLabel("Cilent ID:");
             jobLabel.setBounds(20, 20, 200, 30);
             jobFrame.add(jobLabel);
 
-            JTextField ownerIdField = new JTextField("Owner ID");
+            JTextField ownerIdField = new JTextField("");
             ownerIdField.setBounds(20, 60, 200, 30);
             jobFrame.add(ownerIdField);
-
             
+            JLabel jobDuration = new JLabel("Approximate duration of task:");
+            jobDuration.setBounds(20, 90, 200, 30);
+            jobFrame.add(jobDuration);
+            
+            JTextField jobDurationTextField = new JTextField("");
+            jobDurationTextField.setBounds(20, 120, 200, 30);
+            jobFrame.add(jobDurationTextField);
+            
+            JLabel jobDeadline = new JLabel ("Job Deadline: (mm/dd/yyyy)");
+            jobDeadline.setBounds(20, 150, 200, 30);
+            jobFrame.add(jobDeadline);
+            
+            JTextField jobDeadlineTextField = new JTextField("");
+            jobDeadlineTextField.setBounds(20, 180, 200, 30);
+            jobFrame.add(jobDeadlineTextField);      
 
             JButton submitJobButton = new JButton("Submit Job");
             submitJobButton.setBounds(20, 260, 150, 30);
@@ -64,7 +79,7 @@ public class VRCTSJFrame {
                
                 String ownerID = ownerIdField.getText();
                 
-
+                
                 
                 LocalDateTime currentTime = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -92,5 +107,6 @@ public class VRCTSJFrame {
                 jobFrame.dispose();
             });
         });
+        
     }
 }
