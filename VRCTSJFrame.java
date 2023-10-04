@@ -121,6 +121,56 @@ public class VRCTSJFrame {
             
                 jobFrame.dispose();
             });
+
+ownerButton.addActionListener(f -> {
+    JFrame ownerFrame = new JFrame("Owner Panel");
+    ownerFrame.setSize(300, 350);
+
+    JLabel ownerIDLabel = new JLabel("Owner ID:");
+    ownerIDLabel.setBounds(20, 20, 200, 30);
+    ownerFrame.add(ownerIDLabel);
+
+    JTextField ownerIDTextField = new JTextField("");
+    ownerIDTextField.setBounds(20, 60, 200, 30);
+    ownerFrame.add(ownerIDTextField);
+
+    JButton submitOwnerInfoButton = new JButton("Submit Owner Info");
+    submitOwnerInfoButton.setBounds(20, 260, 150, 30);
+    ownerFrame.add(submitOwnerInfoButton);
+
+    ownerFrame.setLayout(null);
+    ownerFrame.setVisible(true);
+
+    submitOwnerInfoButton.addActionListener(event -> {
+        String ownerID = ownerIDTextField.getText();
+        // Extract and process other owner information fields as needed...
+
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String timestamp = currentTime.format(formatter);
+
+        String data = "Timestamp: " + timestamp + "\n" +
+                "Owner ID: " + ownerID + "\n";
+        // Add other owner information to the data...
+
+        String fileName = "ownerlog.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            writer.write(data);
+            writer.newLine();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
+        JOptionPane.showMessageDialog(null, "Owner information submitted and saved to " + fileName);
+
+        ownerFrame.dispose();
+    });
+});
+
+
+
+
+
         });
         
     }
