@@ -104,7 +104,7 @@ public class VRCTSJFrame {
                         
 
                 
-                        String fileName = "clientlog.txt"; 
+                        String fileName = "actionlog.txt"; 
                         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
                             writer.write(data);
                             writer.newLine(); 
@@ -132,14 +132,38 @@ ownerButton.addActionListener(f -> {
     JTextField ownerIDTextField = new JTextField("");
     ownerIDTextField.setBounds(20, 60, 200, 30);
     ownerFrame.add(ownerIDTextField);
+    
+           // enter the vehicle information for OWNER
+            JLabel vehicleInfo = new JLabel("Vehicle Information:");
+            vehicleInfo.setBounds(20, 90, 200, 30);
+            jobFrame.add(vehicleInfo);
+            
+            //text field for user to enter vehicle information 
+            JTextField vehicleInfoTextField = new JTextField("");
+            vehicleInfoTextField.setBounds(20, 120, 200, 30);
+            jobFrame.add(vehicleInfoTextField);
+    
+           //asks user to enter approx. residency time
+            JLabel residentTime = new JLabel ("Residency Time:");
+            residentTime.setBounds(20, 150, 200, 30);
+            jobFrame.add(residentTime);
+            
+            //text field for user to enter dead line date
+            JTextField residentTimeTextField = new JTextField("");
+            residentTimeTextField.setBounds(20, 180, 200, 30);
+            jobFrame.add(residentTimeTextField);      
 
+
+//button to submit the owner id info 
     JButton submitOwnerInfoButton = new JButton("Submit Owner Info");
     submitOwnerInfoButton.setBounds(20, 260, 150, 30);
     ownerFrame.add(submitOwnerInfoButton);
 
+
+    
     ownerFrame.setLayout(null);
     ownerFrame.setVisible(true);
-
+//submits owner info.
     submitOwnerInfoButton.addActionListener(event -> {
         String ownerID = ownerIDTextField.getText();
         // Extract and process other owner information fields as needed...
@@ -152,7 +176,7 @@ ownerButton.addActionListener(f -> {
                 "Owner ID: " + ownerID + "\n";
         // Add other owner information to the data...
 
-        String fileName = "ownerlog.txt";
+        String fileName = "actionlog.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             writer.write(data);
             writer.newLine();
