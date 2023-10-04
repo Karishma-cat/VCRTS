@@ -67,7 +67,7 @@ public class VRCTSJFrame {
         clientIdField.setBounds(20, 60, 200, 30);
         jobFrame.add(clientIdField);
 
-        JLabel jobDuration = createStyledLabel("Approximate duration of task:");
+        JLabel jobDuration = createStyledLabel("Approximate duration of task (in minutes):");
         jobDuration.setBounds(20, 90, 200, 30);
         jobFrame.add(jobDuration);
 
@@ -96,7 +96,7 @@ public class VRCTSJFrame {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String timestamp = currentTime.format(formatter);
 
-            String data = "Timestamp: " + timestamp + "\n" +
+            String data = "Timestamp: " + timestamp + "\n" + 
                     "Client ID: " + clientID + "\n";
 
             String fileName = "actionlog.txt";
@@ -113,7 +113,7 @@ public class VRCTSJFrame {
         ownerFrame.setSize(300, 350);
 
         JLabel ownerIDLabel = createStyledLabel("Owner ID:");
-        ownerIDLabel.setBounds(20, 20, 200, 30);
+        ownerIDLabel.setBounds(20, 20, 400, 30);
         ownerFrame.add(ownerIDLabel);
 
         JTextField ownerIDTextField = new JTextField("");
@@ -197,7 +197,7 @@ public class VRCTSJFrame {
     {
         JLabel label = new JLabel(text);
 
-        label.setFont(new Font("Arial", Font.BOLD, 14)); 
+        label.setFont(new Font("Arial", Font.BOLD, 12)); 
         label.setForeground(Color.PINK);
 
         return label;
