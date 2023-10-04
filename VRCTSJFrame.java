@@ -136,22 +136,22 @@ ownerButton.addActionListener(f -> {
            // enter the vehicle information for OWNER
             JLabel vehicleInfo = new JLabel("Vehicle Information:");
             vehicleInfo.setBounds(20, 90, 200, 30);
-            jobFrame.add(vehicleInfo);
+            ownerFrame.add(vehicleInfo);
             
             //text field for user to enter vehicle information 
             JTextField vehicleInfoTextField = new JTextField("");
             vehicleInfoTextField.setBounds(20, 120, 200, 30);
-            jobFrame.add(vehicleInfoTextField);
+            ownerFrame.add(vehicleInfoTextField);
     
            //asks user to enter approx. residency time
             JLabel residentTime = new JLabel ("Residency Time:");
             residentTime.setBounds(20, 150, 200, 30);
-            jobFrame.add(residentTime);
+            ownerFrame.add(residentTime);
             
             //text field for user to enter dead line date
             JTextField residentTimeTextField = new JTextField("");
             residentTimeTextField.setBounds(20, 180, 200, 30);
-            jobFrame.add(residentTimeTextField);      
+            ownerFrame.add(residentTimeTextField);      
 
 
 //button to submit the owner id info 
