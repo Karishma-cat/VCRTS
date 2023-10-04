@@ -68,7 +68,7 @@ public class VRCTSJFrame {
         jobFrame.add(clientIdField);
 
         JLabel jobDuration = createStyledLabel("Approximate duration of task (in minutes):");
-        jobDuration.setBounds(20, 90, 200, 30);
+        jobDuration.setBounds(20, 90, 400, 30);
         jobFrame.add(jobDuration);
 
         JTextField jobDurationTextField = new JTextField("");
