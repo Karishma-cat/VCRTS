@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -50,6 +51,11 @@ public class VRCTSJFrame {
         buttonPanel.add(ownerButton);
 
         frame.setVisible(true);
+
+        ImageIcon imageIcon = new ImageIcon("FordMustang.png");
+
+        JLabel imageLabel = new JLabel(imageIcon);
+        mainPanel.add(imageLabel, BorderLayout.SOUTH);
 
         jobButton.addActionListener(e -> openJobSubmission());
         ownerButton.addActionListener(f -> openOwnerPanel());
@@ -179,9 +185,9 @@ public class VRCTSJFrame {
         button.setPreferredSize(new Dimension(200, 40));
         button.setFont(new Font("Arial", Font.BOLD, 14));
 
-        button.setBackground(new Color(255,255,255));
+        button.setBackground(new Color(128, 0, 32));
 
-        button.setForeground(Color.PINK);
+        button.setForeground(new Color(255, 255, 255));
 
         LineBorder border = new LineBorder(Color.PINK, 2);
         button.setBorder(border);
@@ -198,8 +204,9 @@ public class VRCTSJFrame {
         JLabel label = new JLabel(text);
 
         label.setFont(new Font("Arial", Font.BOLD, 12)); 
-        label.setForeground(Color.PINK);
+        label.setForeground(new Color(128, 0, 32));
 
         return label;
     }
+    
 }
