@@ -56,9 +56,9 @@ public class VRCTSJFrame {
             jobFrame.add(jobLabel);
 
             //text field for user to enter client id 
-            JTextField ownerIdField = new JTextField("");
-            ownerIdField.setBounds(20, 60, 200, 30);
-            jobFrame.add(ownerIdField);
+            JTextField clientIdField = new JTextField("");
+            clientIdField.setBounds(20, 60, 200, 30);
+            jobFrame.add(clientIdField);
             
             //Asks user to enter the approximate duration of the task being entered
             JLabel jobDuration = new JLabel("Approximate duration of task:");
@@ -89,12 +89,10 @@ public class VRCTSJFrame {
             jobFrame.setVisible(true);
 
            
-            //submits the information that was provided
+            //submits the information that was provided for CLIENT
             submitJobButton.addActionListener(event -> {
                
-                String ownerID = ownerIdField.getText();
-                
-                
+                String clientID = clientIdField.getText();
                 
                 LocalDateTime currentTime = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -102,11 +100,11 @@ public class VRCTSJFrame {
 
                 
                 String data = "Timestamp: " + timestamp + "\n"
-                        + "Owner ID: " + ownerID + "\n";
+                        + "Client ID: " + clientID + "\n";
                         
 
                 
-                        String fileName = "actionlog.txt"; 
+                        String fileName = "clientlog.txt"; 
                         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
                             writer.write(data);
                             writer.newLine(); 
@@ -116,7 +114,7 @@ public class VRCTSJFrame {
                         
 
                 //Allowing the user to know that the information was successfully proccessed
-                JOptionPane.showMessageDialog(null, "Data submitted and saved to " + fileName);
+                JOptionPane.showMessageDialog(null, "Client data submitted and saved to " + fileName);
 
             
                 jobFrame.dispose();
@@ -125,11 +123,12 @@ public class VRCTSJFrame {
 ownerButton.addActionListener(f -> {
     JFrame ownerFrame = new JFrame("Owner Panel");
     ownerFrame.setSize(300, 350);
-
+    
+  // creates Owner ID 
     JLabel ownerIDLabel = new JLabel("Owner ID:");
     ownerIDLabel.setBounds(20, 20, 200, 30);
     ownerFrame.add(ownerIDLabel);
-
+//text field to enter the Owner ID 
     JTextField ownerIDTextField = new JTextField("");
     ownerIDTextField.setBounds(20, 60, 200, 30);
     ownerFrame.add(ownerIDTextField);
