@@ -193,7 +193,7 @@ public class VRCTSJFrame {
 
             // Get values from the input fields
     String ownerID = ownerIDTextField.getText();
-    String vehicleInfo = vehicleInfoTextField.getText();
+    //String vehicleInfo = vehicleInfoTextField.getText();
     String residencyTime = residentTimeTextField.getText();
     LocalDateTime currentTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
