@@ -10,7 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -192,15 +191,19 @@ public class VRCTSJFrame {
 
         submitOwnerInfoButton.addActionListener(event -> {
 
-            //  Gets values from the input fields
-            String ownerID = ownerIDTextField.getText();
-            LocalDateTime currentTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("mm-dd-yyyy HH:mm:ss");
-            String timestamp = currentTime.format(formatter);
+            // Get values from the input fields
+    String ownerID = ownerIDTextField.getText();
+    String vehicleInfo = vehicleInfoTextField.getText();
+    String residencyTime = residentTimeTextField.getText();
+    LocalDateTime currentTime = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
+    String timestamp = currentTime.format(formatter);
 
-            // Prepare data for writing to a file
-            String data = "Timestamp: " + timestamp + "\n" +
-                    "Owner ID: " + ownerID + "\n";
+             // Prepare data for writing to a file
+    String data = "Timestamp: " + timestamp + "\n" +
+    "Owner ID: " + ownerID + "\n" +
+    "Vehicle Information: " + vehicleInfo + "\n" +
+    "Residency Time: " + residencyTime + "\n";
 
             String fileName = "actionlog.txt";
             writeToFile(data, fileName);
