@@ -197,7 +197,7 @@ public class VRCTSJFrame {
 
             // Get values from the input fields
     String ownerID = ownerIDTextField.getText();
-    //String vehicleInfo = vehicleInfoTextField.getText();
+    String vehicleInf = vehicleInfoTextField.getText();
     String residencyTime = residentTimeTextField.getText();
     LocalDateTime currentTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
@@ -206,7 +206,7 @@ public class VRCTSJFrame {
              // Prepare data for writing to a file
     String data = "Timestamp: " + timestamp + "\n" +
     "Owner ID: " + ownerID + "\n" +
-    "Vehicle Information: " + vehicleInfo + "\n" +
+    "Vehicle Information: " + vehicleInf + "\n" +
     "Residency Time: " + residencyTime + "\n";
 
             String fileName = "actionlog.txt";
