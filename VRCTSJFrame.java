@@ -122,6 +122,8 @@ public class VRCTSJFrame {
 
         submitJobButton.addActionListener(event -> {
             String clientID = clientIdField.getText();
+            String jobdeadline = jobDeadlineTextField.getText();
+            String jobduration = jobDurationTextField.getText();
             LocalDateTime currentTime = LocalDateTime.now();
             
             // Get values from the input fields
@@ -131,7 +133,9 @@ public class VRCTSJFrame {
 
              // Get the  data for writing to a file
             String data = "Timestamp: " + timestamp + "\n" + 
-                    "Client ID: " + clientID + "\n";
+                    "Client ID: " + clientID + "\n" +
+                    "Job Duration: " + jobDuration +"\n" +
+                    "Job Deadline: " + jobDeadline + "\n" ;
 
             String fileName = "actionlog.txt";
             writeToFile(data, fileName);
