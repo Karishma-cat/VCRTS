@@ -122,6 +122,8 @@ public class VRCTSJFrame {
 
         submitJobButton.addActionListener(event -> {
             String clientID = clientIdField.getText();
+            String jobdeadline = jobDeadlineTextField.getText();
+            String jobduration = jobDurationTextField.getText();
             LocalDateTime currentTime = LocalDateTime.now();
             
             // Get values from the input fields
@@ -131,7 +133,9 @@ public class VRCTSJFrame {
 
              // Get the  data for writing to a file
             String data = "Timestamp: " + timestamp + "\n" + 
-                    "Client ID: " + clientID + "\n";
+                    "Client ID: " + clientID + "\n" +
+                    "Job Duration: " + jobduration +"\n" +
+                    "Job Deadline: " + jobdeadline + "\n" ;
 
             String fileName = "actionlog.txt";
             writeToFile(data, fileName);
@@ -194,6 +198,7 @@ ownerFrame.add(vehicleInfoTextField);
             // Get values from the input fields
     String ownerID = ownerIDTextField.getText();
     String vehicleInfo = vehicleInfoTextField.getText();
+    String vehicleInf = vehicleInfoTextField.getText();
     String residencyTime = residentTimeTextField.getText();
     LocalDateTime currentTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
@@ -202,7 +207,7 @@ ownerFrame.add(vehicleInfoTextField);
              // Prepare data for writing to a file
     String data = "Timestamp: " + timestamp + "\n" +
     "Owner ID: " + ownerID + "\n" +
-    "Vehicle Information: " + vehicleInfo + "\n" +
+    "Vehicle Information: " + vehicleInf + "\n" +
     "Residency Time: " + residencyTime + "\n";
 
             String fileName = "actionlog.txt";
