@@ -22,7 +22,7 @@ import javax.swing.border.LineBorder;
 //  Creating a JFrame for the GUI
 public class VRCTSJFrame {
     private static JFrame frame;
-
+    private static JTextField vehicleInfoTextField;
     public static void main(String[] args) {
         initializeGUI();
     }
@@ -161,14 +161,14 @@ public class VRCTSJFrame {
 
         // Create and configure a label for "Vehicle Information"
 
-        JLabel vehicleInfo = createStyledLabel("Vehicle Information:");
-        vehicleInfo.setBounds(20, 90, 200, 30);
-        ownerFrame.add(vehicleInfo);
+        JLabel vehicleInfoLabel = createStyledLabel("Vehicle Information:");
+        vehicleInfoLabel.setBounds(20, 90, 200, 30);
+        ownerFrame.add(vehicleInfoLabel);
 
-        // Creates a text field to enter Vehicle Info
-        JTextField vehicleInfoTextField = new JTextField("");
-        vehicleInfoTextField.setBounds(20, 120, 200, 30);
-        ownerFrame.add(vehicleInfoTextField);
+ // Creates a text field to enter Vehicle Info
+ vehicleInfoTextField = new JTextField("");
+vehicleInfoTextField.setBounds(20, 120, 200, 30);
+ownerFrame.add(vehicleInfoTextField);
 
 
         // Creates and configues a label for Residency Time
@@ -193,7 +193,7 @@ public class VRCTSJFrame {
 
             // Get values from the input fields
     String ownerID = ownerIDTextField.getText();
-    //String vehicleInfo = vehicleInfoTextField.getText();
+    String vehicleInfo = vehicleInfoTextField.getText();
     String residencyTime = residentTimeTextField.getText();
     LocalDateTime currentTime = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
@@ -215,12 +215,11 @@ public class VRCTSJFrame {
             ownerFrame.dispose();
         });
     }
-
-    // This method writes data to a file and returns a boolean indicating success or failure.
     private static boolean writeToFile(String data, String fileName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             writer.write(data);
             writer.newLine();
+            writer.close(); 
             return true;
         } catch (IOException e) {
             e.printStackTrace();
