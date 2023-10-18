@@ -134,8 +134,8 @@ public class VRCTSJFrame {
              // Get the  data for writing to a file
             String data = "Timestamp: " + timestamp + "\n" + 
                     "Client ID: " + clientID + "\n" +
-                    "Job Duration: " + jobDuration +"\n" +
-                    "Job Deadline: " + jobDeadline + "\n" ;
+                    "Job Duration: " + jobduration +"\n" +
+                    "Job Deadline: " + jobdeadline + "\n" ;
 
             String fileName = "actionlog.txt";
             writeToFile(data, fileName);
