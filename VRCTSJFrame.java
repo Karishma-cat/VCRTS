@@ -20,14 +20,14 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 //  Creating a JFrame for the GUI
-public class VRCTSJFrame {
+class VRCTSJFrame {
     private static JFrame frame;
     private static JTextField vehicleInfoTextField;
     public static void main(String[] args) {
         initializeGUI();
     }
 // Giving the GUI a title, a welcome message and dimentions 
-    private static void initializeGUI() {
+    public static void initializeGUI() {
         JFrame frame = new JFrame("Vehicle Cloud Real Time System");
         frame.setSize(400, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
