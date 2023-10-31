@@ -1,19 +1,15 @@
-class Client 
-{
+class Client {
     private String name;
 
-    public Client(String name) 
-    {
+    public Client(String name) {
         this.name = name;
     }
 
-    public String getName() 
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name) 
-    {
+    public void setName(String name) {
         this.name = name;
     }
 

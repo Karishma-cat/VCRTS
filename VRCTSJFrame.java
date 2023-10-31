@@ -76,12 +76,10 @@ class VRCTSJFrame {
         jobButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                Client client = new Client(""); 
-                Job job = new Job(client);
+                Client client = new Client("");
+                VC VC = new VC(client);
             }
         });
-        
         
 
         ownerButton.addActionListener(f -> openOwnerPanel());
