@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 
 public class VC { 
     static private ArrayList<Job> jobs;
+    private static int compTime = 0;
     Client client;
 
     public VC(Client client) {
@@ -17,17 +18,14 @@ public class VC {
     }
     static public void addJob(Job j) {
         jobs.add(j);
+        compTime += j.getDuration();
     }
 
     public ArrayList<Job> getJobs() {
         return jobs;
     }
-    public static int calcCompTime(int duration) {
-         int compTime = 0;
-         for (Job job : jobs) {
-             compTime += job.getDuration();
-         }
-         return compTime + duration;
+    public static int calcCompTime(int time) {
+        return compTime + time;
      }
      
      static public int getSize() {
