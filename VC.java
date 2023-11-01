@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,16 +13,33 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class VC {
+   
     private static String[] clientIds = new String[100];
     private static String[] jobDurations = new String[100];
     private static String[] jobDeadlines = new String[100];
     private static int currentIndex = 0;
     private Client client; 
+    private ArrayList<Job> jobs;
 
     public VC(Client client) {
         this.client = client;
+        jobs = new ArrayList<Job>();
+    }
+    public void addJob(Job j) {
+        jobs.add(j);
     }
 
+    public ArrayList<Job> getJobs() {
+        return jobs;
+    }
+     public double calcCompTime(Job j) {
+         double compTime = 0;
+
+         for (Job job : jobs) {
+             compTime += job.getDuration();
+         }
+         return compTime;
+     }
 
     public static void main(String[] args) {
         VRCTSJFrame.initializeGUI();
@@ -89,6 +106,8 @@ public class VC {
 
             jobFrame.dispose();
         });
+
+       
     }
 
     public static void writeToFile(String data, String fileName) {
@@ -103,7 +122,7 @@ public class VC {
     private static JLabel createStyledLabel(String text) 
     {
         JLabel label = new JLabel(text);
-        label.setFont(new Font("Arial", Font.BOLD, 12);
+        label.setFont(new Font("Arial", Font.BOLD, 12));
         label.setForeground(new Color(128, 0, 32));
 
         return label;
