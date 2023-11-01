@@ -123,7 +123,7 @@ class VRCTSJFrame {
         ownerFrame.add(residentTimeTextField);
 
         // Creates a button for Submit Owner Info
-        JButton submitOwnerInfoButton = new JButton("Submit Owner Info");
+        JButton submitOwnerInfoButton = createStyledButton("Submit Owner Info");
         submitOwnerInfoButton.setBounds(20, 260, 250, 50);
         ownerFrame.add(submitOwnerInfoButton);
 
@@ -160,7 +160,7 @@ class VRCTSJFrame {
  // Creates a new JFrame for job submission with a title and dimensions
     public static void openJobSubmission() {
         JFrame jobFrame = new JFrame("Job Submission");
-        jobFrame.setSize(300, 350);
+        jobFrame.setSize(300, 450);
 
         JLabel jobLabel = createStyledLabel("Client ID:");
         jobLabel.setBounds(20, 20, 200, 30);
@@ -190,12 +190,12 @@ class VRCTSJFrame {
         jobDeadlineTextField.setBounds(20, 180, 200, 30);
         jobFrame.add(jobDeadlineTextField);
 
-        JButton submitJobButton = new JButton("Submit Job");
+        JButton submitJobButton = createStyledButton("Submit Job");
         submitJobButton.setBounds(20, 260, 150, 30);
         jobFrame.add(submitJobButton);
         
-        JButton calButton = new JButton("Calculate time");
-        calButton.setBounds(200, 260, 150, 30);
+        JButton calButton = createStyledButton("Calculate time");
+        calButton.setBounds(20, 320, 150, 30);
         jobFrame.add(calButton);
 
         jobFrame.setLayout(null);
@@ -225,7 +225,7 @@ class VRCTSJFrame {
 
             String data = "Timestamp: " + timestamp + "\n" +
                     "Client ID: " + subJob1.getId() + "\n" +
-                    "Job Duration: " + subJob1.getDuration() + "\n" +
+                    "Job Duration (in minutes): " + subJob1.getDuration() + "\n" +
                     "Job Deadline: " + subJob1.getDeadline() + "\n"+
                     "Job Completion time: " + subJob1.getCompletionTime();
             		VC.addJob(subJob1);
