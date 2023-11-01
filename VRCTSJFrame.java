@@ -184,7 +184,7 @@ class VRCTSJFrame {
 
         JLabel timeLine = createStyledLabel("**Must calculate completion time before submitting**");
         timeLine.setBounds(20, 140, 450, 200);
-        timeLine.setFont(new Font("Arial", Font.ITALIC, 11));
+        timeLine.setFont(new Font("Arial", Font.BOLD, 11));
         timeLine.setForeground(new Color(128, 0, 32));
         jobFrame.add(timeLine);
 
@@ -210,7 +210,6 @@ class VRCTSJFrame {
         calButton.addActionListener(event ->{
             int clientID = Integer.parseInt(clientIdField.getText());
             String deadline = jobDeadlineTextField.getText();
-            System.out.println("Deadline: " + deadline);
             int duration = Integer.parseInt(jobDurationTextField.getText());
             int completionTime = VC.calcCompTime(duration);
             Job subJob = new Job(clientID,VC.getSize() + 1, duration, deadline, completionTime);
