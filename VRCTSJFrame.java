@@ -189,14 +189,14 @@ class VRCTSJFrame {
         JTextField jobDeadlineTextField = new JTextField("");
         jobDeadlineTextField.setBounds(20, 180, 200, 30);
         jobFrame.add(jobDeadlineTextField);
-
-        JButton submitJobButton = createStyledButton("Submit Job");
-        submitJobButton.setBounds(20, 260, 150, 30);
-        jobFrame.add(submitJobButton);
         
         JButton calButton = createStyledButton("Calculate time");
         calButton.setBounds(20, 320, 150, 30);
         jobFrame.add(calButton);
+
+        JButton submitJobButton = createStyledButton("Submit Job");
+        submitJobButton.setBounds(20, 260, 150, 30);
+        jobFrame.add(submitJobButton);
 
         jobFrame.setLayout(null);
         jobFrame.setVisible(true);
