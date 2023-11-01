@@ -106,8 +106,8 @@ public class VC {
 
             JOptionPane.showMessageDialog(null, "Client data submitted and saved to " + fileName);
             JLabel compTime = createStyledLabel("Job Completion Time");
-            jobDeadline.setBounds(20, 150, 200, 30);
-            jobFrame.add(jobDeadline);
+            jobCompletion.setBounds(20, 150, 200, 30);
+            jobFrame.add(jobCompletion);
 
             jobFrame.dispose();
         });
@@ -133,3 +133,4 @@ public class VC {
         return label;
     }
 }
+
