@@ -182,20 +182,26 @@ class VRCTSJFrame {
         jobDeadline.setBounds(20, 150, 200, 30);
         jobFrame.add(jobDeadline);
 
-        JLabel timeLine = createStyledLabel("");
-        timeLine.setBounds(20, 140, 200, 200);
+        JLabel timeLine = createStyledLabel("**Must calculate completion time before submitting**");
+        timeLine.setBounds(20, 140, 450, 200);
+        timeLine.setFont(new Font("Arial", Font.ITALIC, 11));
+        timeLine.setForeground(new Color(128, 0, 32));
         jobFrame.add(timeLine);
 
         JTextField jobDeadlineTextField = new JTextField("");
         jobDeadlineTextField.setBounds(20, 180, 200, 30);
         jobFrame.add(jobDeadlineTextField);
         
-        JButton calButton = createStyledButton("Calculate time");
-        calButton.setBounds(20, 260, 150, 30);
+        JButton calButton = createStyledButton("Calculate completion time");
+        calButton.setBounds(20, 260, 250, 30);
+        calButton.setPreferredSize(new Dimension(200, 40));
+        calButton.setFont(new Font("Arial", Font.BOLD, 14));
         jobFrame.add(calButton);
 
         JButton submitJobButton = createStyledButton("Submit Job");
-        submitJobButton.setBounds(20, 320, 150, 30);
+        submitJobButton.setBounds(20, 320, 250, 30);
+        submitJobButton.setPreferredSize(new Dimension(200, 40));
+        submitJobButton.setFont(new Font("Arial", Font.BOLD, 14));
         jobFrame.add(submitJobButton);
 
         jobFrame.setLayout(null);
