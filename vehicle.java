@@ -1,4 +1,3 @@
-
 public class vehicle {
 // store the Vehicle ID
     private int vehicleID;

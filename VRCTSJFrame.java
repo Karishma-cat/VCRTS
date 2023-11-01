@@ -26,15 +26,13 @@ import javax.swing.border.LineBorder;
 class VRCTSJFrame {
     private static JFrame frame;
     private static JTextField vehicleInfoTextField;
-
-    public static void main(String[] args) {
-        initializeGUI();
-    }
+    static Job subJob1;
+    static double complete;
 
     // Giving the GUI a title, a welcome message and dimentions
     public static void initializeGUI() {
         JFrame frame = new JFrame("Vehicle Cloud Real Time System");
-        frame.setSize(400, 200);
+        frame.setSize(900, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Created a main panel to hold all the components
@@ -67,10 +65,9 @@ class VRCTSJFrame {
         frame.setVisible(true);
 
         ImageIcon imageIcon = new ImageIcon("FordMustang.png");
-
         JLabel imageLabel = new JLabel(imageIcon);
         mainPanel.add(imageLabel, BorderLayout.SOUTH);
-
+        mainPanel.updateUI();
         //Calls to the job method when the button is clicked
 
         jobButton.addActionListener(new ActionListener() {
@@ -78,13 +75,15 @@ class VRCTSJFrame {
             public void actionPerformed(ActionEvent e) {
                 Client client = new Client("");
                 VC VC = new VC(client);
+                openJobSubmission();
+                
             }
         });
         
 
         ownerButton.addActionListener(f -> openOwnerPanel());
     }
-    // Creates a new JFrame for job submission with a title and dimensions
+    // Creates a new JFrame for Owner submission with a title and dimensions
 
     private static void openOwnerPanel() {
 
@@ -135,7 +134,6 @@ class VRCTSJFrame {
 
             // Get values from the input fields
             String ownerID = ownerIDTextField.getText();
-            String vehicleInfo = vehicleInfoTextField.getText();
             String vehicleInf = vehicleInfoTextField.getText();
             String residencyTime = residentTimeTextField.getText();
             LocalDateTime currentTime = LocalDateTime.now();
@@ -157,6 +155,93 @@ class VRCTSJFrame {
 
             ownerFrame.dispose();
         });
+    }
+
+ // Creates a new JFrame for job submission with a title and dimensions
+    public static void openJobSubmission() {
+        JFrame jobFrame = new JFrame("Job Submission");
+        jobFrame.setSize(300, 350);
+
+        JLabel jobLabel = createStyledLabel("Client ID:");
+        jobLabel.setBounds(20, 20, 200, 30);
+        jobFrame.add(jobLabel);
+
+        JTextField clientIdField = new JTextField("");
+        clientIdField.setBounds(20, 60, 200, 30);
+        jobFrame.add(clientIdField);
+
+        JLabel jobDuration = createStyledLabel("Approximate duration of task (in minutes):");
+        jobDuration.setBounds(20, 90, 400, 30);
+        jobFrame.add(jobDuration);
+
+        JTextField jobDurationTextField = new JTextField("");
+        jobDurationTextField.setBounds(20, 120, 200, 30);
+        jobFrame.add(jobDurationTextField);
+
+        JLabel jobDeadline = createStyledLabel("Job Deadline: (mm/dd/yyyy)");
+        jobDeadline.setBounds(20, 150, 200, 30);
+        jobFrame.add(jobDeadline);
+
+        JLabel timeLine = createStyledLabel("");
+        timeLine.setBounds(20, 140, 200, 200);
+        jobFrame.add(timeLine);
+
+        JTextField jobDeadlineTextField = new JTextField("");
+        jobDeadlineTextField.setBounds(20, 180, 200, 30);
+        jobFrame.add(jobDeadlineTextField);
+
+        JButton submitJobButton = new JButton("Submit Job");
+        submitJobButton.setBounds(20, 260, 150, 30);
+        jobFrame.add(submitJobButton);
+        
+        JButton calButton = new JButton("Calculate time");
+        calButton.setBounds(200, 260, 150, 30);
+        jobFrame.add(calButton);
+
+        jobFrame.setLayout(null);
+        jobFrame.setVisible(true);
+
+        calButton.addActionListener(event ->{
+            int clientID = Integer.parseInt(clientIdField.getText());
+            String deadline = jobDeadlineTextField.getText();
+            System.out.println("Deadline: " + deadline);
+            int duration = Integer.parseInt(jobDurationTextField.getText());
+            int completionTime = VC.calcCompTime(duration);
+            Job subJob = new Job(clientID,VC.getSize() + 1, duration, deadline, completionTime);
+            if (!subJob.equals(subJob1)) {
+                subJob1 = subJob;
+            }
+    		timeLine.setText("Calculated Time: " + subJob1.getCompletionTime());
+        });
+
+        submitJobButton.addActionListener(event -> {
+            if (subJob1 == null) {
+                JOptionPane.showMessageDialog(null, "You must calculate the sub job first");
+                return;
+            }
+            LocalDateTime currentTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("mm-dd-yyyy HH:mm:ss");
+            String timestamp = currentTime.format(formatter);
+
+            String data = "Timestamp: " + timestamp + "\n" +
+                    "Client ID: " + subJob1.getId() + "\n" +
+                    "Job Duration: " + subJob1.getDuration() + "\n" +
+                    "Job Deadline: " + subJob1.getDeadline() + "\n"+
+                    "Job Completion time: " + subJob1.getCompletionTime();
+            		VC.addJob(subJob1);
+            String fileName = "actionlog.txt";
+            writeToFile(data, fileName);
+
+            JOptionPane.showMessageDialog(null, "Client data submitted and saved to " + fileName);
+            JLabel jobCompletion = createStyledLabel("Job Completion Time");
+            jobCompletion.setBounds(20, 150, 200, 30);
+            jobFrame.add(jobCompletion);
+
+            jobFrame.dispose();
+            subJob1 = null;
+        });
+
+       
     }
 
     private static boolean writeToFile(String data, String fileName) {
@@ -199,7 +284,8 @@ class VRCTSJFrame {
     }
 
     // This method creates and configures a styled JLabel.
-    private static JLabel createStyledLabel(String text) {
+    private static JLabel createStyledLabel(String text) 
+    {
 
         JLabel label = new JLabel(text);
 

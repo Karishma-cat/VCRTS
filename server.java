@@ -1,3 +1,4 @@
-public class server {
+public class server 
+{
     
 }
