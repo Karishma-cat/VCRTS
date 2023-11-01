@@ -162,7 +162,7 @@ class VRCTSJFrame {
         JFrame jobFrame = new JFrame("Job Submission");
         jobFrame.setSize(300, 450);
 
-        JLabel jobLabel = createStyledLabel("Client ID:");
+        JLabel jobLabel = createStyledLabel("Client ID (numeric values only):");
         jobLabel.setBounds(20, 20, 200, 30);
         jobFrame.add(jobLabel);
 
