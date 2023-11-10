@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,9 +26,10 @@ import javax.swing.border.LineBorder;
 //  Creating a JFrame for the GUI
 class VRCTSJFrame {
     private static JFrame frame;
-    private static JTextField vehicleInfoTextField;
+    private static JTextField ownerIdTextField;
     static Job subJob1;
     static double complete;
+    private static ArrayList<vehicleowner> ownerList = new ArrayList<>();
 
     // Giving the GUI a title, a welcome message and dimentions
     public static void initializeGUI() {
@@ -61,6 +63,9 @@ class VRCTSJFrame {
 
         JButton ownerButton = createStyledButton("Login to Owner Panel");
         buttonPanel.add(ownerButton);
+        
+        JButton ownerRegister = createStyledButton("Owner Registration");
+        buttonPanel.add(ownerRegister);
 
         frame.setVisible(true);
 
@@ -82,6 +87,10 @@ class VRCTSJFrame {
         
 
         ownerButton.addActionListener(f -> openOwnerPanel());
+        
+        ownerRegister.addActionListener(g -> ownerRegisterClick());
+        
+        
     }
     // Creates a new JFrame for Owner submission with a title and dimensions
 
@@ -108,12 +117,12 @@ class VRCTSJFrame {
         ownerFrame.add(vehicleInfoLabel);
 
         // Creates a text field to enter Vehicle Info
-        vehicleInfoTextField = new JTextField("");
-        vehicleInfoTextField.setBounds(20, 120, 200, 30);
-        ownerFrame.add(vehicleInfoTextField);
+        ownerIdTextField = new JTextField("");
+        ownerIdTextField.setBounds(20, 120, 200, 30);
+        ownerFrame.add(ownerIdTextField);
 
         // Creates and configues a label for Residency Time
-        JLabel residentTime = createStyledLabel("Residency Time:");
+        JLabel residentTime = createStyledLabel("Residency Time: in hours");
         residentTime.setBounds(20, 150, 200, 30);
         ownerFrame.add(residentTime);
 
@@ -134,17 +143,18 @@ class VRCTSJFrame {
 
             // Get values from the input fields
             String ownerID = ownerIDTextField.getText();
-            String vehicleInf = vehicleInfoTextField.getText();
+            String vehicleInf = ownerIdTextField.getText();
             String residencyTime = residentTimeTextField.getText();
             LocalDateTime currentTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
             String timestamp = currentTime.format(formatter);
-
+            int ownerNumber = Integer.parseInt(ownerID);
+            if(checkForId(ownerNumber)) {
             // Prepare data for writing to a file
             String data = "Timestamp: " + timestamp + "\n" +
                     "Owner ID: " + ownerID + "\n" +
                     "Vehicle Information: " + vehicleInf + "\n" +
-                    "Residency Time: " + residencyTime + "\n";
+                    "Residency Time (hours): " + residencyTime + "\n";
 
             String fileName = "actionlog.txt";
             writeToFile(data, fileName);
@@ -154,7 +164,68 @@ class VRCTSJFrame {
             JOptionPane.showMessageDialog(null, "The owner information was sent to the file.");
 
             ownerFrame.dispose();
+            }
+            else {
+            	JOptionPane.showMessageDialog(null, "Invalid Login");
+            }
         });
+    }
+    
+    private static void ownerRegisterClick() {
+    	 
+        JFrame ownerRegisterFrame = new JFrame("Owner Registration");
+        ownerRegisterFrame.setSize(300, 350);
+
+        
+        JLabel ownerNameLabel = createStyledLabel("Please enter your full name:");
+        ownerNameLabel.setBounds(20, 20, 400, 30);
+        ownerRegisterFrame.add(ownerNameLabel);
+
+        
+        JTextField ownerNameTextField = new JTextField("");
+        ownerNameTextField.setBounds(20, 60, 200, 30);
+        ownerRegisterFrame.add(ownerNameTextField);
+        
+        JLabel setOwnerId = createStyledLabel("Please enter an ID (numbers only)");
+        setOwnerId.setBounds(20, 90, 200, 30);
+        ownerRegisterFrame.add(setOwnerId);
+
+        
+        JTextField ownerIdTextField = new JTextField("");
+        ownerIdTextField.setBounds(20, 120, 200, 30);
+        ownerRegisterFrame.add(ownerIdTextField);
+        
+        JButton submitOwnerRegisInfo = createStyledButton("Submit Owner Info");
+        submitOwnerRegisInfo.setBounds(20, 260, 250, 50);
+        ownerRegisterFrame.add(submitOwnerRegisInfo);
+        
+        ownerRegisterFrame.setLayout(null);
+        ownerRegisterFrame.setVisible(true);
+        
+        submitOwnerRegisInfo.addActionListener(x -> {
+        	
+        	String ownerName = ownerNameTextField.getText();
+            String ownerIdString = ownerIdTextField.getText();
+            int ownerId = Integer.parseInt(ownerIdString); 
+            
+            if(checkForId(ownerId)) {
+            	JOptionPane.showMessageDialog(null, "ID number already in use, please select another");
+            }
+            else {
+            vehicleowner ownerRegistered = new vehicleowner(ownerId, ownerName);
+            
+            JOptionPane.showMessageDialog(null, "You have been registered");
+            
+            String ownerData = "Owner ID: " + ownerId + "\n" + "Owner Name: " +ownerName + "\n";
+            String filename = "actionlog.txt";
+            writeToFile(ownerData, filename);
+            ownerList.add(ownerRegistered);
+            
+            ownerRegisterFrame.dispose();
+            }
+        	
+        });     
+        
     }
 
  // Creates a new JFrame for job submission with a title and dimensions
@@ -299,6 +370,15 @@ class VRCTSJFrame {
         label.setForeground(new Color(128, 0, 32));
 
         return label;
+    }
+    
+    private static boolean checkForId (int ownerId) {
+    	for(vehicleowner vowner: ownerList) {
+    		if (vowner.getOwnerId()==ownerId) {
+    			return true;
+    		}
+    	}
+    	return false;
     }
 
 }
