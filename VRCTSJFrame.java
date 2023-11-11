@@ -26,7 +26,7 @@ import javax.swing.border.LineBorder;
 //  Creating a JFrame for the GUI
 class VRCTSJFrame {
     private static JFrame frame;
-    private static JTextField ownerIdTextField;
+    private static JTextField vehicleInfoTextField;
     static Job subJob1;
     static double complete;
     private static ArrayList<vehicleowner> ownerList = new ArrayList<>();
@@ -117,9 +117,9 @@ class VRCTSJFrame {
         ownerFrame.add(vehicleInfoLabel);
 
         // Creates a text field to enter Vehicle Info
-        ownerIdTextField = new JTextField("");
-        ownerIdTextField.setBounds(20, 120, 200, 30);
-        ownerFrame.add(ownerIdTextField);
+        vehicleInfoTextField = new JTextField("");
+        vehicleInfoTextField.setBounds(20, 120, 200, 30);
+        ownerFrame.add(vehicleInfoTextField);
 
         // Creates and configues a label for Residency Time
         JLabel residentTime = createStyledLabel("Residency Time: in hours");
@@ -143,7 +143,7 @@ class VRCTSJFrame {
 
             // Get values from the input fields
             String ownerID = ownerIDTextField.getText();
-            String vehicleInf = ownerIdTextField.getText();
+            String vehicleInf = vehicleInfoTextField.getText();
             String residencyTime = residentTimeTextField.getText();
             LocalDateTime currentTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
