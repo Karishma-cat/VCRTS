@@ -1,5 +1,7 @@
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
@@ -8,6 +10,15 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 public class Logingui extends JFrame {
     private JTextField usernameField;
@@ -21,6 +32,35 @@ public class Logingui extends JFrame {
         initializeLoginGUI();
     }
 
+    // This method creates and configures a styled JButton.
+    private static JButton createStyledButton(String text) {
+        JButton button = new JButton(text);
+
+        button.setPreferredSize(new Dimension(200, 40));
+        button.setFont(new Font("Arial", Font.BOLD, 14));
+        button.setBackground(new Color(128, 0, 32));
+        button.setForeground(new Color(255, 255, 255));
+
+        LineBorder border = new LineBorder(Color.PINK, 2);
+        button.setBorder(border);
+
+        button.setFocusPainted(false);
+        button.setBorderPainted(true);
+        button.setOpaque(true);
+
+        return button;
+    }
+
+    // This method creates and configures a styled JLabel.
+    private static JLabel createStyledLabel(String text) {
+        JLabel label = new JLabel(text);
+
+        label.setFont(new Font("Arial", Font.BOLD, 12));
+        label.setForeground(new Color(128, 0, 32));
+
+        return label;
+    }
+
     private void initializeLoginGUI() {
         setTitle("Login");
         setSize(300, 150);
@@ -29,16 +69,19 @@ public class Logingui extends JFrame {
         JPanel loginPanel = new JPanel();
         loginPanel.setLayout(new GridLayout(3, 2));
 
-        JLabel usernameLabel = new JLabel("Username:");
-        usernameField = new JTextField();
-        ownerCheckBox = new JCheckBox("Owner");
-        JButton loginButton = new JButton("Login");
-
+        JLabel usernameLabel = createStyledLabel("Username:");
         loginPanel.add(usernameLabel);
+
+        usernameField = new JTextField();
         loginPanel.add(usernameField);
+
+        ownerCheckBox = new JCheckBox("Owner");
         loginPanel.add(ownerCheckBox);
-        loginPanel.add(new JLabel());
+
+        JButton loginButton = createStyledButton("Login");
         loginPanel.add(loginButton);
+
+        loginPanel.add(new JLabel());
 
         add(loginPanel);
 

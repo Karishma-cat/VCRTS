@@ -1,0 +1,30 @@
+Timestamp: 45-01-2023 14:45:21
+Client ID: 1
+Job Duration (in minutes): 12
+Job Deadline: 
+Job Completion time: 12
+Timestamp: 45-01-2023 14:45:29
+Client ID: 1
+Job Duration (in minutes): 12
+Job Deadline: 
+Job Completion time: 24
+Timestamp: 11-13-2023 13:04:58
+Username: Tiffany
+User Type: Owner
+
+Timestamp: 11-13-2023 13:05:36
+Username: Tiffany
+User Type: Client
+
+Timestamp: 11-13-2023 14:01:54
+Username: Tiffany
+User Type: Owner
+
+Timestamp: 11-13-2023 14:02:06
+Username: Tiffany
+User Type: Owner
+
+Timestamp: 11-13-2023 14:02:16
+Username: Tiffany
+User Type: Client
+
