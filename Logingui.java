@@ -62,17 +62,18 @@ public class Logingui extends JFrame {
             // Show Client Panel
             showClientPanel();
         }
-
-        // Open the VRCTSJFrame GUI
-        VRCTSJFrame vrctsJFrame = new VRCTSJFrame();
+    
+        // Open the VRCTSJFrame GUI and pass the isOwner information
+        VRCTSJFrame vrctsJFrame = new VRCTSJFrame(isOwner);
         vrctsJFrame.initializeGUI();
-
+    
         // Save user input to the action log file
         saveUserInfoToLogFile(username, isOwner);
-
+    
         // Close the login window
         dispose();
     }
+    
 
     private void saveUserInfoToLogFile(String username, boolean isOwner) {
         LocalDateTime currentTime = LocalDateTime.now();
