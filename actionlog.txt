@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Timestamp: 45-01-2023 14:45:21
 Client ID: 1
 Job Duration (in minutes): 12
@@ -26,5 +27,9 @@ User Type: Owner
 
 Timestamp: 11-13-2023 14:02:16
 Username: Tiffany
+=======
+Timestamp: 11-13-2023 20:35:33
+Username: b
+>>>>>>> 65d2db4212900f42f905485d5cd4dc4c6f66fa38
 User Type: Client
 

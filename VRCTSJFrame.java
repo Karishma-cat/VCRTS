@@ -30,7 +30,7 @@ class VRCTSJFrame {
     static Job subJob1;
     static double complete;
     private static ArrayList<vehicleowner> ownerList = new ArrayList<>();
-
+    private boolean isOwner;
     // Giving the GUI a title, a welcome message and dimentions
     public static void initializeGUI() {
         JFrame frame = new JFrame("Vehicle Cloud Real Time System");
@@ -82,20 +82,27 @@ class VRCTSJFrame {
                 VC VC = new VC(client);
                 openJobSubmission();
                 
-            }
-        });
-        
 
+                
+            }
+            //public VRCTSJFrame(boolean isOwner) {
+               // this.isOwner = isOwner;
+               //alex this is for gui owner checker and it being a little bit annoying
+        });
+       
         ownerButton.addActionListener(f -> openOwnerPanel());
         
         ownerRegister.addActionListener(g -> ownerRegisterClick());
         
-        
+
+
     }
     // Creates a new JFrame for Owner submission with a title and dimensions
 
     private static void openOwnerPanel() {
-
+        if (!isOwner) {
+            JOptionPane.showMessageDialog(null, "Error: Only owners can access the Owner Panel.");
+            return;
         // Creates a panel for Owner Panel
         JFrame ownerFrame = new JFrame("Owner Panel");
         ownerFrame.setSize(300, 350);
@@ -170,7 +177,7 @@ class VRCTSJFrame {
             }
         });
     }
-    
+}
     private static void ownerRegisterClick() {
     	 
         JFrame ownerRegisterFrame = new JFrame("Owner Registration");
