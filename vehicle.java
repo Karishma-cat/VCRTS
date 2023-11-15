@@ -62,7 +62,7 @@ public static void main(String[] args) {
 		outputStream = new DataOutputStream(socket.getOutputStream());
 		
 		
-		// client reads a message from keyboard
+		// client sends data
 		System.out.println("Enter data you want to send to server side: ");
 		keyInput = new Scanner(System.in);
 		messageOut = keyInput.nextLine();
@@ -73,16 +73,7 @@ public static void main(String[] args) {
 		while(!messageIn.equals("end")) {
 			messageIn = inputStream.readUTF();
 			// client prints the message received from server to console
-			System.out.println("message received from server: " + "\"" + messageIn + "\"");
-			
-			
-			// ********************************************************
-			// client reads a message from keyboard
-			System.out.println("Enter a message you want to send to server side: ");
-			keyInput = new Scanner(System.in);
-			messageOut = keyInput.nextLine();
-			// server sends the message to client
-			outputStream.writeUTF(messageOut);
+			System.out.println("message received from server: " + "\"" + messageIn + "\");
 			
 		}
 					
