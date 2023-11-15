@@ -41,25 +41,23 @@ class Client {
 			//client reads a message from Server
 			inputStream = new DataInputStream(socket.getInputStream());
 			outputStream = new DataOutputStream(socket.getOutputStream());
+
+
+			// client sends data
+		System.out.println("Enter data you want to send to server side: ");
+		keyInput = new Scanner(System.in);
+		messageOut = keyInput.nextLine();
+		// server sends the message to client
+		outputStream.writeUTF(messageOut);
+		
+
+		while(!messageIn.equals("end")) {
+			messageIn = inputStream.readUTF();
+			// client prints the message received from server to console
+			System.out.println("message received from server: " + "\"" + messageIn + "\");
 			
-	
-			while(!messageIn.equals("end")) {
-				
-			//	dataIn = inputStream.readUTF();
-				// client prints the message received from server to console
-			//	System.out.println("data received from server: " + "\"" + dataIn + "\"");
-				
-				
-				// ********************************************************
-				// client reads a message from keyboard
-			//	System.out.println("Enter a message you want to send to server side: ");
-			//	keyInput = new Scanner(System.in);
-			//	dataOut = keyInput.nextLine();
-				// server sends the message to client
-			//	outputStream.writeUTF(dataOut);
-				
-			}
-						
+		}
+							
 
 		} catch (Exception e) {
 			
