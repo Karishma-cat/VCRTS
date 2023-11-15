@@ -47,6 +47,7 @@ public static void main(String[] args) {
 	
 	String messageIn = "";
 	String messageOut = "";
+	Scanner keyInput;
 	
 	
 	try {
@@ -73,7 +74,7 @@ public static void main(String[] args) {
 		while(!messageIn.equals("end")) {
 			messageIn = inputStream.readUTF();
 			// client prints the message received from server to console
-			System.out.println("message received from server: " + "\"" + messageIn + "\");
+			System.out.println("message received from server: " + "\"" + messageIn + "\"");
 			
 		}
 					
