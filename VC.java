@@ -55,7 +55,7 @@ public class VC {
 
     public static void main(String[] args) {
         
-        String messageIn= "";
+                String messageIn= "";
 		String messageOut = "";
 		
 		try {
@@ -64,7 +64,7 @@ public class VC {
 			// sever accepts connection request from client
 			socket = serverSocket.accept();
 
-			// server reads a message message from client
+			// server reads a message from client
 			inputStream = new DataInputStream(socket.getInputStream());
 
 			// server sends a message to client
@@ -96,7 +96,7 @@ public class VC {
 		        
 		        deny.addActionListener(x -> {
 					try {
-						outputStream.writeUTF("pass");
+						outputStream.writeUTF("deny");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
