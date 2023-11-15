@@ -106,9 +106,9 @@ public class Logingui extends JFrame {
             showClientPanel();
         }
     
-        // Open the VRCTSJFrame GUI and pass the isOwner information
-        VRCTSJFrame vrctsJFrame = new VRCTSJFrame(isOwner);
-        vrctsJFrame.initializeGUI();
+        //Open the VRCTSJFrame GUI and pass the isOwner information
+        VRCTSJFrame vrctsJFrame = new VRCTSJFrame();
+       vrctsJFrame.initializeGUI();
     
         // Save user input to the action log file
         saveUserInfoToLogFile(username, isOwner);

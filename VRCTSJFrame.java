@@ -124,9 +124,9 @@ class VRCTSJFrame {
     // Creates a new JFrame for Owner submission with a title and dimensions
 
     private static void openOwnerPanel() {
-        if (!isOwner) {
-            JOptionPane.showMessageDialog(null, "Error: Only owners can access the Owner Panel.");
-            return;
+      //  if (!isOwner) {
+            //JOptionPane.showMessageDialog(null, "Error: Only owners can access the Owner Panel.");
+           // return;
         // Creates a panel for Owner Panel
         JFrame ownerFrame = new JFrame("Owner Panel");
         ownerFrame.setSize(300, 350);
@@ -201,7 +201,7 @@ class VRCTSJFrame {
             }
         });
     }
-}
+
     private static void ownerRegisterClick() {
     	 
         JFrame ownerRegisterFrame = new JFrame("Owner Registration");
