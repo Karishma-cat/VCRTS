@@ -28,7 +28,7 @@ class Client {
 		
 		String messageIn = "";
 		String messageOut = "";
-		
+		Scanner keyInput;	
 		try {
 
 			System.out.println("----*** This is client side ***----");
@@ -54,7 +54,7 @@ class Client {
 		while(!messageIn.equals("end")) {
 			messageIn = inputStream.readUTF();
 			// client prints the message received from server to console
-			System.out.println("message received from server: " + "\"" + messageIn + "\");
+			System.out.println("message received from server: " + "\"" + messageIn + "\"");
 			
 		}
 							
