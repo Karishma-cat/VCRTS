@@ -1,4 +1,3 @@
-
 //  Importing necessary libraries for the GUI
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -7,9 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,6 +19,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+import java.io.*;
+
 //  Creating a JFrame for the GUI
 class VRCTSJFrame {
     private static JFrame frame;
@@ -30,10 +32,32 @@ class VRCTSJFrame {
     static Job subJob1;
     static double complete;
     private static ArrayList<vehicleowner> ownerList = new ArrayList<>();
-    private boolean isOwner;
+    private static boolean isOwner;
+    
+    static ServerSocket serverSocket;
+	static Socket socket;
+	static DataInputStream inputStream;
+	static DataOutputStream outputStream;
+	
+	public static void main(String[]args) {
+		try {
+			socket = new Socket("localhost", 9808);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		initializeGUI();
+	}
+	
     // Giving the GUI a title, a welcome message and dimentions
     public static void initializeGUI() {
-        JFrame frame = new JFrame("Vehicle Cloud Real Time System");
+        
+    	
+
+    	
+    	JFrame frame = new JFrame("Vehicle Cloud Real Time System");
         frame.setSize(900, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -302,26 +326,65 @@ class VRCTSJFrame {
                 JOptionPane.showMessageDialog(null, "You must calculate the sub job first");
                 return;
             }
-            LocalDateTime currentTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("mm-dd-yyyy HH:mm:ss");
-            String timestamp = currentTime.format(formatter);
+            String messageIn = "";
+    		String messageOut = "";
+    		
+    		try {    			
+    			
+    			Socket socket1=socket;
+    			
+    			//client reads a message from Server
+    			inputStream = new DataInputStream(socket.getInputStream());
+    			outputStream = new DataOutputStream(socket.getOutputStream());
+    			
+    			
+    			messageOut = String.valueOf(subJob1.getId());
+    			// server sends the message to client
+    			outputStream.writeUTF(messageOut);
+    			
+    	
+    				messageIn = inputStream.readUTF();
+    				
+    				if(messageIn.equals("pass")) {
+    					LocalDateTime currentTime = LocalDateTime.now();
+    		            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("mm-dd-yyyy HH:mm:ss");
+    		            String timestamp = currentTime.format(formatter);
 
-            String data = "Timestamp: " + timestamp + "\n" +
-                    "Client ID: " + subJob1.getId() + "\n" +
-                    "Job Duration (in minutes): " + subJob1.getDuration() + "\n" +
-                    "Job Deadline: " + subJob1.getDeadline() + "\n"+
-                    "Job Completion time: " + subJob1.getCompletionTime();
-            		VC.addJob(subJob1);
-            String fileName = "actionlog.txt";
-            writeToFile(data, fileName);
+    		            String data = "Timestamp: " + timestamp + "\n" +
+    		                    "Client ID: " + subJob1.getId() + "\n" +
+    		                    "Job Duration (in minutes): " + subJob1.getDuration() + "\n" +
+    		                    "Job Deadline: " + subJob1.getDeadline() + "\n"+
+    		                    "Job Completion time: " + subJob1.getCompletionTime();
+    		            		VC.addJob(subJob1);
+    		           
+    		            		
+    		            		String fileName = "actionlog.txt";
+    		            writeToFile(data, fileName);
 
-            JOptionPane.showMessageDialog(null, "Client data submitted and saved to " + fileName);
-            JLabel jobCompletion = createStyledLabel("Job Completion Time");
-            jobCompletion.setBounds(20, 150, 200, 30);
-            jobFrame.add(jobCompletion);
+    		            JOptionPane.showMessageDialog(null, "Client data submitted and saved to " + fileName);
+    		            JLabel jobCompletion = createStyledLabel("Job Completion Time");
+    		            jobCompletion.setBounds(20, 150, 200, 30);
+    		            jobFrame.add(jobCompletion);
 
-            jobFrame.dispose();
-            subJob1 = null;
+    		            jobFrame.dispose();
+    		            subJob1 = null;
+    				}
+    				else {
+    					 JOptionPane.showMessageDialog(null, "Data was not saved");
+     		            JLabel noSave = createStyledLabel("Data not saved");
+     		            noSave.setBounds(20, 150, 200, 30);
+     		            jobFrame.add(noSave);
+
+     		            jobFrame.dispose();
+    				}			
+    						
+
+    		} catch (Exception e) {
+    			
+    			e.printStackTrace();
+
+    		}
+            
         });
 
        
@@ -389,3 +452,4 @@ class VRCTSJFrame {
     }
 
 }
+
