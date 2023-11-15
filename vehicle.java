@@ -47,14 +47,14 @@ public static void main(String[] args) {
 	
 	String messageIn = "";
 	String messageOut = "";
-	Scanner keyInput;
+	
 	
 	try {
 
-		System.out.println("----------*** This is vehicle owner side ***--------");
+		System.out.println("-----*** This is vehicle owner side ***-----");
 		System.out.println("vehicle owner started!");
 		//connect the client socket to server
-		Socket socket = new Socket("localhost", 9806);
+		Socket socket = new Socket("localhost", 9808);
 		
 		
 		//client reads a message from Server
@@ -70,7 +70,7 @@ public static void main(String[] args) {
 		outputStream.writeUTF(messageOut);
 		
 
-		while(!messageIn.equals("exit")) {
+		while(!messageIn.equals("end")) {
 			messageIn = inputStream.readUTF();
 			// client prints the message received from server to console
 			System.out.println("message received from server: " + "\"" + messageIn + "\"");
