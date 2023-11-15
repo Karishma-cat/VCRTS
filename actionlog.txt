@@ -41,3 +41,19 @@ Timestamp: 11-14-2023 23:26:50
 Username: h
 User Type: Client
 
+Owner ID: 1234
+Owner Name: John
+
+Timestamp: 11-15-2023 12:05:28
+Owner ID: 1234
+Vehicle Information: Honda
+Residency Time (hours): 5
+
+Owner ID: 1224
+Owner Name: John
+
+Timestamp: 11-15-2023 12:17:08
+Owner ID: 1224
+Vehicle Information: Honda3
+Residency Time (hours): 
+

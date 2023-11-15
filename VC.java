@@ -74,6 +74,10 @@ public class VC {
 			 JFrame serverChoice = new JFrame("Server choice");
 		        serverChoice.setSize(300, 450);
 		        
+
+                
+                
+
 		        JButton pass = createStyledButton("Calculate completion time");
 		        pass.setBounds(20, 260, 250, 30);
 		        pass.setPreferredSize(new Dimension(200, 40));
@@ -86,9 +90,13 @@ public class VC {
 		        deny.setFont(new Font("Arial", Font.BOLD, 14));
 		        serverChoice.add(deny);
 		        
+
+
+
 		        pass.addActionListener(x -> {
 					try {
 						outputStream.writeUTF("pass");
+                        serverChoice.dispose();
 					} catch (IOException e) {
 						e.printStackTrace();
 					};
@@ -97,11 +105,15 @@ public class VC {
 		        deny.addActionListener(x -> {
 					try {
 						outputStream.writeUTF("deny");
+                        serverChoice.dispose();
+
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 		        
 		        });
+                serverChoice.add(pass);
+                serverChoice.add(deny);
 				
 			}}catch (Exception e) {
 
@@ -127,6 +139,14 @@ public class VC {
         label.setForeground(new Color(128, 0, 32));
 
         return label;
+    } 
+
+    private static void sentToClient(String message) throws IOException{
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("actionlog.server.txt", true))){
+            writer.write("Server response: " + message);
+            writer.newLine();
+        }
+        ((DataOutputStream) socket.getOutputStream()).writeUTF(message);
     }
     
     public static JButton createStyledButton(String text) {
