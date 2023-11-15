@@ -43,7 +43,7 @@ class Client {
 			outputStream = new DataOutputStream(socket.getOutputStream());
 			
 	
-			while(!dataIn.equals("end")) {
+			while(!messageIn.equals("end")) {
 				
 			//	dataIn = inputStream.readUTF();
 				// client prints the message received from server to console
