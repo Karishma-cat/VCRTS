@@ -235,24 +235,45 @@ class VRCTSJFrame extends JFrame{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
             String timestamp = currentTime.format(formatter);
             int ownerNumber = Integer.parseInt(ownerID);
-            if(checkForId(ownerNumber)) {
-            // Prepare data for writing to a file
-            String data = "Timestamp: " + timestamp + "\n" +
-                    "Owner ID: " + ownerID + "\n" +
-                    "Vehicle Information: " + vehicleInf + "\n" +
-                    "Residency Time (hours): " + residencyTime + "\n";
-
-            String fileName = "actionlog.txt";
-            writeToFile(data, fileName);
-
-            // Write data to the file and display a confirmation dialog
-
-            JOptionPane.showMessageDialog(null, "The owner information was sent to the file.");
-
-            ownerFrame.dispose();
+            if(checkForId(ownerNumber)==false) {   	
+            	JOptionPane.showMessageDialog(null, "Invalid Login");  
             }
             else {
-            	JOptionPane.showMessageDialog(null, "Invalid Login");
+            	String messageIn = "";
+            	String messageOut = "";
+            	
+            	try {
+            		inputStream = new DataInputStream(socket.getInputStream());
+            		outputStream = new DataOutputStream(socket.getOutputStream());
+            		
+            		messageOut = ownerID;
+            		outputStream.writeUTF(messageOut);
+            		
+            		messageIn = inputStream.readUTF();
+            		
+            		if(messageIn.equals("pass")) {
+            			
+                        // Prepare data for writing to a file
+                        String data = "Timestamp: " + timestamp + "\n" +
+                                "Owner ID: " + ownerID + "\n" +
+                                "Vehicle Information: " + vehicleInf + "\n" +
+                                "Residency Time (hours): " + residencyTime + "\n";
+
+                        String fileName = "actionlog.txt";
+                        writeToFile(data, fileName);
+                        
+                        JOptionPane.showMessageDialog(null, "Data was saved to " +fileName );
+                        ownerFrame.dispose();
+            		}
+            		else {
+            			JOptionPane.showMessageDialog(null, "Data was not saved");
+            			ownerFrame.dispose();
+            			
+            		}
+            		
+            	} catch (Exception e) {
+            		e.printStackTrace();
+            	}
             }
         });
     }
