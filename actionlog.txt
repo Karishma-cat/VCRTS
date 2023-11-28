@@ -61,3 +61,12 @@ Timestamp: 11-28-2023 12:03:56
 Username: 23
 User Type: Client
 
+Timestamp: 11-28-2023 13:53:44
+Username: 23
+User Type: Client
+
+Timestamp: 53-28-2023 13:53:56
+Client ID: 1
+Job Duration (in minutes): 24
+Job Deadline: 12/25/2023
+Job Completion time: 24

@@ -55,7 +55,7 @@ public class VC {
 
     public static void main(String[] args) {
         
-                String messageIn= "";
+        String messageIn= "";
 		String messageOut = "";
 		
 		try {
@@ -64,56 +64,51 @@ public class VC {
 			// sever accepts connection request from client
 			socket = serverSocket.accept();
 
-			// server reads a message from client
+			// server reads a message message from client
 			inputStream = new DataInputStream(socket.getInputStream());
 
 			// server sends a message to client
 			outputStream = new DataOutputStream(socket.getOutputStream());
 
 			while(!messageIn.equals("end")) {
+				
+				messageIn = inputStream.readUTF();
+
 			 JFrame serverChoice = new JFrame("Server choice");
 		        serverChoice.setSize(300, 450);
 		        
-
-                
-                
-
-		        JButton pass = createStyledButton("Calculate completion time");
+		        JButton pass = new JButton("Accept request");
 		        pass.setBounds(20, 260, 250, 30);
 		        pass.setPreferredSize(new Dimension(200, 40));
 		        pass.setFont(new Font("Arial", Font.BOLD, 14));
 		        serverChoice.add(pass);
 		        
-		        JButton deny = createStyledButton("Calculate completion time");
-		        deny.setBounds(20, 260, 250, 30);
+		        JButton deny = new JButton("Reject request");
+		        deny.setBounds(20, 320, 250, 30);
 		        deny.setPreferredSize(new Dimension(200, 40));
 		        deny.setFont(new Font("Arial", Font.BOLD, 14));
 		        serverChoice.add(deny);
 		        
-
-
-
+		        serverChoice.setVisible(true);
+		        
 		        pass.addActionListener(x -> {
 					try {
 						outputStream.writeUTF("pass");
-                        serverChoice.dispose();
 					} catch (IOException e) {
 						e.printStackTrace();
 					};
+					serverChoice.dispose();
 		        });
 		        
 		        deny.addActionListener(x -> {
 					try {
 						outputStream.writeUTF("deny");
-                        serverChoice.dispose();
-
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+					serverChoice.dispose();
 		        
 		        });
-                serverChoice.add(pass);
-                serverChoice.add(deny);
 				
 			}}catch (Exception e) {
 
@@ -139,14 +134,6 @@ public class VC {
         label.setForeground(new Color(128, 0, 32));
 
         return label;
-    } 
-
-    private static void sentToClient(String message) throws IOException{
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("actionlog.server.txt", true))){
-            writer.write("Server response: " + message);
-            writer.newLine();
-        }
-        ((DataOutputStream) socket.getOutputStream()).writeUTF(message);
     }
     
     public static JButton createStyledButton(String text) {
@@ -173,7 +160,6 @@ public class VC {
         button.setOpaque(true);
 
         return button;
-	    //AVERY'S WORK
     }
     
 }
