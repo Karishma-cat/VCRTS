@@ -57,3 +57,7 @@ Owner ID: 1224
 Vehicle Information: Honda3
 Residency Time (hours): 
 
+Timestamp: 11-28-2023 12:03:56
+Username: 23
+User Type: Client
+

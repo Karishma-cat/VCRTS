@@ -4,29 +4,39 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 import java.io.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 //  Creating a JFrame for the GUI
-class VRCTSJFrame {
+class VRCTSJFrame extends JFrame{
     private static JFrame frame;
     private static JTextField vehicleInfoTextField;
     static Job subJob1;
@@ -38,6 +48,8 @@ class VRCTSJFrame {
 	static Socket socket;
 	static DataInputStream inputStream;
 	static DataOutputStream outputStream;
+	private static JTextField usernameField;
+    private static JCheckBox ownerCheckBox;
 	
 	public static void main(String[]args) {
 		try {
@@ -48,13 +60,54 @@ class VRCTSJFrame {
 			e.printStackTrace();
 		}
 		
-		initializeGUI();
+		ArrayList<vehicleowner> ownerList = new ArrayList<>();
+        Logingui logingui = new Logingui(ownerList);
 	}
 	
-    // Giving the GUI a title, a welcome message and dimentions
+	private void initializeLoginGUI() {
+		setTitle("Login");
+        setSize(300, 150);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel loginPanel = new JPanel();
+        loginPanel.setLayout(new GridLayout(3, 2));
+
+        JLabel usernameLabel = new JLabel("Username:");
+        usernameField = new JTextField();
+        ownerCheckBox = new JCheckBox("Owner");
+        JButton loginButton = new JButton("Login");
+
+        loginPanel.add(usernameLabel);
+        loginPanel.add(usernameField);
+        loginPanel.add(ownerCheckBox);
+        loginPanel.add(new JLabel());
+        loginPanel.add(loginButton);
+
+        add(loginPanel);
+
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameField.getText();
+                boolean isOwner = ownerCheckBox.isSelected();
+                authenticateUser(username, isOwner);
+            }
+        });
+
+        setVisible(true);
+    }
+
+	// Giving the GUI a title, a welcome message and dimentions
     public static void initializeGUI() {
-        
-    	
+    	/*
+    	try {
+			socket = new Socket("localhost", 9808);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	*/
 
     	
     	JFrame frame = new JFrame("Vehicle Cloud Real Time System");
@@ -109,9 +162,10 @@ class VRCTSJFrame {
 
                 
             }
-            //public VRCTSJFrame(boolean isOwner) {
-               // this.isOwner = isOwner;
-               //alex this is for gui owner checker and it being a little bit annoying
+           // public void VRCTSJFrame(boolean isOwner) {
+               //this.isOwner = isOwner;
+         //alex this is for gui owner checker and it being a little bit annoying
+            //}
         });
        
         ownerButton.addActionListener(f -> openOwnerPanel());
@@ -124,9 +178,8 @@ class VRCTSJFrame {
     // Creates a new JFrame for Owner submission with a title and dimensions
 
     private static void openOwnerPanel() {
-      //  if (!isOwner) {
             //JOptionPane.showMessageDialog(null, "Error: Only owners can access the Owner Panel.");
-           // return;
+            //return;
         // Creates a panel for Owner Panel
         JFrame ownerFrame = new JFrame("Owner Panel");
         ownerFrame.setSize(300, 350);
@@ -201,7 +254,6 @@ class VRCTSJFrame {
             }
         });
     }
-
     private static void ownerRegisterClick() {
     	 
         JFrame ownerRegisterFrame = new JFrame("Owner Registration");
@@ -326,6 +378,8 @@ class VRCTSJFrame {
                 JOptionPane.showMessageDialog(null, "You must calculate the sub job first");
                 return;
             }
+            
+            else {
             String messageIn = "";
     		String messageOut = "";
     		
@@ -370,7 +424,7 @@ class VRCTSJFrame {
     		            subJob1 = null;
     				}
     				else {
-    					 JOptionPane.showMessageDialog(null, "Data was not saved");
+    					JOptionPane.showMessageDialog(null, "Data was not saved");
      		            JLabel noSave = createStyledLabel("Data not saved");
      		            noSave.setBounds(20, 150, 200, 30);
      		            jobFrame.add(noSave);
@@ -385,9 +439,55 @@ class VRCTSJFrame {
 
     		}
             
-        });
+            }});
 
-       
+        
+    }
+    
+    private void authenticateUser(String username, boolean isOwner) {
+        if (isOwner) {
+            // Show Owner Panel
+            showOwnerPanel();
+        } else {
+            // Show Client Panel
+            showClientPanel();
+        }
+    
+        // Open the VRCTSJFrame GUI and pass the isOwner information
+        VRCTSJFrame vrctsJFrame = new VRCTSJFrame();
+        vrctsJFrame.initializeGUI();
+    
+        // Save user input to the action log file
+        saveUserInfoToLogFile(username, isOwner);
+    
+        // Close the login window
+        dispose();
+    }
+    
+
+    private void saveUserInfoToLogFile(String username, boolean isOwner) {
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
+        String timestamp = currentTime.format(formatter);
+
+        String userType = isOwner ? "Owner" : "Client";
+
+        // Prepare data for writing to a file
+        String data = "Timestamp: " + timestamp + "\n" +
+                "Username: " + username + "\n" +
+                "User Type: " + userType + "\n";
+
+        String fileName = "actionlog.txt";
+        writeToFile(data, fileName);
+    }
+
+    private void showOwnerPanel() {
+        JOptionPane.showMessageDialog(null, "Welcome, Owner!");
+        dispose(); // Closes the login window
+    }
+
+    private void showClientPanel() {
+        JOptionPane.showMessageDialog(null, "Welcome, Client!");
     }
 
     private static boolean writeToFile(String data, String fileName) {
@@ -452,4 +552,3 @@ class VRCTSJFrame {
     }
 
 }
-
