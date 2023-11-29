@@ -30,12 +30,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.sql.*;
 
 //  Creating a JFrame for the GUI
 class VRCTSJFrame extends JFrame{
@@ -45,6 +43,11 @@ class VRCTSJFrame extends JFrame{
     static double complete;
     private static ArrayList<vehicleowner> ownerList = new ArrayList<>();
     private static boolean isOwner;
+    static Connection connection = null;
+    static String url = "jdbc:mysql://localhost:3306/VC3";
+    static String user = "root";
+    static String pass = "rootuser1";
+
     
     static ServerSocket serverSocket;
 	static Socket socket;
@@ -61,6 +64,12 @@ class VRCTSJFrame extends JFrame{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+        try{
+            connection = DriverManager.getConnection(url, user, pass);
+        }catch(SQLException e){
+            e.getMessage();
+        }
 		
 		ArrayList<vehicleowner> ownerList = new ArrayList<>();
         Logingui logingui = new Logingui(ownerList);
@@ -326,6 +335,14 @@ class VRCTSJFrame extends JFrame{
             String filename = "actionlog.txt";
             writeToFile(ownerData, filename);
             ownerList.add(ownerRegistered);
+            try{
+                            String sql = "INSERT INTO table1"+ "(ClientID, name)"+"VALUES(ownerId, ownerName)";
+                            Statement statement = connection.createStatement();
+                            int row=statement.executeUpdate(sql);
+        
+                        }catch(SQLException e){
+                            e.getMessage();
+                        }
             
             ownerRegisterFrame.dispose();
             }
@@ -437,6 +454,15 @@ class VRCTSJFrame extends JFrame{
     		            		
     		            		String fileName = "actionlog.txt";
     		            writeToFile(data, fileName);
+
+                        try{
+                            String sql = "INSERT INTO table2"+ "(JobID, jobDuration, jobDeadline, jobCompletion)"+"VALUES(subJob1.getId(), subJob1.getDuration(), subJob1.getDeadline(), subJob1.getCompletionTime())";
+                            Statement statement = connection.createStatement();
+                            int row=statement.executeUpdate(sql);
+        
+                        }catch(SQLException e){
+                            e.getMessage();
+                        }
 
     		            JOptionPane.showMessageDialog(null, "Client data submitted and saved to " + fileName);
     		            JLabel jobCompletion = createStyledLabel("Job Completion Time");
