@@ -70,3 +70,44 @@ Client ID: 1
 Job Duration (in minutes): 24
 Job Deadline: 12/25/2023
 Job Completion time: 24
+Timestamp: 11-28-2023 17:52:17
+Username: jack
+User Type: Client
+
+Owner ID: 1234
+Owner Name: Jack
+
+Timestamp: 11-28-2023 17:53:09
+Username: john
+User Type: Client
+
+Timestamp: 11-28-2023 17:54:27
+Username: jack
+User Type: Client
+
+Timestamp: 11-28-2023 17:55:19
+Username: jack
+User Type: Client
+
+Timestamp: 11-28-2023 18:01:38
+Username: Jack
+User Type: Owner
+
+Timestamp: 01-28-2023 18:01:54
+Client ID: 1
+Job Duration (in minutes): 12
+Job Deadline: 12/24/2023
+Job Completion time: 12
+Timestamp: 02-28-2023 18:02:20
+Client ID: 1
+Job Duration (in minutes): 12
+Job Deadline: 09/09/2023
+Job Completion time: 24
+Owner ID: 1234
+Owner Name: Jack
+
+Timestamp: 11-28-2023 18:02:43
+Owner ID: 1234
+Vehicle Information: Honda
+Residency Time (hours): 5
+
